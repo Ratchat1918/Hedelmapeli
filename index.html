@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hedelmäpeli</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div id="pankki">
+        <h1 id="h1_saldo"></h1>
+        <label for="panos_input" id="label_panos">PANOS:</label>
+        <input id="panos_input" value="1" type="number" min="1" max="script/nykyinen_saldo">
+        <p id="voitto">Voitto:</p>
+        <p id="huomio"></p>
+    </div>
+    <div id="säänöt">
+        <h1>Säänöt</h1>
+        <p>neljä "7""=10x panos</p>
+        <p>kolme "7"=10x panos</p>
+        <p>neljä omena=6x panos</p>
+        <p>neljä meloni=5x panos</p>
+        <p>neljä päärymä=4x panos</p>
+        <p>neljä kirsikka=5x panos</p>
+    </div>
+    <div id="peli">
+        <button id="playBtn">Pelaa</button>
+        <button id="stopBtn">Lopeta pelikierros</button>
+        <button id="restartBtn">Restart</button><br>
+        <div id="slots">
+            <a id="slot0"></a> <a id="slot1"></a> <a id="slot2"></a> <a id="slot3"></a> <a id="slot4"></a>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

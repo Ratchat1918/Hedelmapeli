@@ -1,0 +1,19 @@
+#pankki{
+    margin-bottom: 20px;
+    text-align: center;
+    color: rgb(90, 0, 0);
+}
+#peli{
+    margin-bottom: 20px;
+    text-align: center;
+    color: brown;
+}
+body{
+    background-color: rgb(40, 116, 59);
+}
+#säänöt{
+    color: rgba(233, 220, 34, 0.699);
+    position: absolute;
+    top: 0;
+    left: 20;
+}
