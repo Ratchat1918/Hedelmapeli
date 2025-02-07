@@ -7,6 +7,7 @@ let symboli_lista = [];
 let voitto_var = 0;
 let slot_value_list = [null, null, null, null, null];
 let is_lukitaRulla_executed = false; // ensure this is initialized
+let stopKierros_isused=false;
 
 // 1="7" 2="omena" 3="meloni" 4="päärymä" 5="kirsikka"
     
@@ -14,12 +15,9 @@ let is_lukitaRulla_executed = false; // ensure this is initialized
 function Pelata() {
     if (is_lukitaRulla_executed === true) {
         console.log(is_lukitaRulla_executed, "LOCK");
-        // Ensure buttons are disabled if `is_lukitaRulla_executed` is true
-        document.getElementById('lock1').disabled = true;
-        document.getElementById('lock2').disabled = true;
-        document.getElementById('lock3').disabled = true;
-        document.getElementById('lock4').disabled = true;
-        document.getElementById('lock5').disabled = true;
+        for (let x = 1; x < 6; x++) {
+            document.getElementById(`lukitse${x}`).innerHTML = `<a id="slot${x}"></a>`;
+        }
     }
 
     console.log(symboli_lista);
@@ -113,30 +111,35 @@ function Pelata() {
 
     // Function for locking the slots
     function lukitaRulla() {
-        if (ensimainen_pyöräytys === false && voitto_var === 0) {
+        if (ensimainen_pyöräytys === false && voitto_var === 0 && stopKierros_isused===false) {
             document.getElementById("lock_viesti").textContent = "valitse haluamasi lukita rullat";
+            //creating lock buttons
             for (let x = 1; x < 6; x++) {
                 document.getElementById(`lukitse${x}`).innerHTML = `<button id="lock${x}">Lukitse</button>`;
             }
-
             // Assigning click handlers to lock buttons
             document.getElementById('lock1').onclick = function () {
+                document.getElementById('lock1').style.backgroundColor = "aquamarine";
                 is_lukitaRulla_executed = true;
                 slot_value_list[0] = symboli_lista[0];
             };
             document.getElementById('lock2').onclick = function () {
+                document.getElementById('lock2').style.backgroundColor = "aquamarine";
                 is_lukitaRulla_executed = true;
                 slot_value_list[1] = symboli_lista[1];
             };
             document.getElementById('lock3').onclick = function () {
+                document.getElementById('lock3').style.backgroundColor = "aquamarine";
                 is_lukitaRulla_executed = true;
                 slot_value_list[2] = symboli_lista[2];
             };
             document.getElementById('lock4').onclick = function () {
+                document.getElementById('lock4').style.backgroundColor = "aquamarine";
                 is_lukitaRulla_executed = true;
                 slot_value_list[3] = symboli_lista[3];
             };
             document.getElementById('lock5').onclick = function () {
+                document.getElementById('lock5').style.backgroundColor = "aquamarine";
                 is_lukitaRulla_executed = true;
                 slot_value_list[4] = symboli_lista[4];
             };
@@ -149,7 +152,11 @@ function Pelata() {
 }
 
 function stopKierros() {
+    stopKierros_isused=true;
     ensimainen_pyöräytys = true;
+    for (let x = 1; x < 6; x++) {
+        document.getElementById(`lukitse${x}`).innerHTML = `<a id="slot${x}"></a>`;
+    }
     symboli_lista.length = 0;
     nykyinen_saldo += voitto_var;
     document.getElementById("voitto").textContent = "";
