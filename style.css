@@ -20,9 +20,25 @@ body{
     top: 0;
     left: 20;
 }
-#locks{
-    text-align: center;
-}
 #lock_viesti{
     color: rgb(90, 0, 0);
+}
+#lock1{
+    margin-right: 50px;
+    margin-right: 50px;
+}
+#lock2{
+    margin-right: 50x;
+}
+#lock3{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+#lock4{
+    margin-right: 50px;
+    margin-right: 50px;
+}
+#lock5{
+    margin-right: 50px;
+    margin-right: 50px;
 }
