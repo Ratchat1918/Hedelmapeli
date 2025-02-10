@@ -139,13 +139,11 @@ function Pelata() {
                 document.getElementById('lock4').style.backgroundColor = "aquamarine";
                 is_lukitaRulla_executed = true;
                 slot_value_list[3] = symboli_lista[3];
-                is_lukitaRulla_executed2=true;
             };
             document.getElementById('lock5').onclick = function () {
                 document.getElementById('lock5').style.backgroundColor = "aquamarine";
                 is_lukitaRulla_executed = true;
                 slot_value_list[4] = symboli_lista[4];
-                is_lukitaRulla_executed2=true;
             };
         }
     }
