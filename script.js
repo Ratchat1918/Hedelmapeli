@@ -6,7 +6,7 @@ let ensimainen_pyöräytys = true;
 let symboli_lista = [];
 let voitto_var = 0;
 let slot_value_list = [null, null, null, null, null];
-let is_lukitaRulla_executed = false; // ensure this is initialized
+let is_lukitaRulla_executed = false;
 let stopKierros_isused=false;
 
 // 1="7" 2="omena" 3="meloni" 4="päärymä" 5="kirsikka"
@@ -18,6 +18,7 @@ function Pelata() {
         for (let x = 1; x < 6; x++) {
             document.getElementById(`lukitse${x}`).innerHTML = `<a id="slot${x}"></a>`;
         }
+        document.getElementById("lock_viesti").textContent='';
     }
 
     console.log(symboli_lista);
@@ -42,6 +43,7 @@ function Pelata() {
                 symboli_lista.push(number);
             }
         }
+        slot_value_list = [null, null, null, null, null];
     }
 
     // Adding images according to their index
@@ -111,7 +113,7 @@ function Pelata() {
 
     // Function for locking the slots
     function lukitaRulla() {
-        if (ensimainen_pyöräytys === false && voitto_var === 0 && stopKierros_isused===false) {
+        if (ensimainen_pyöräytys === false && voitto_var === 0 && stopKierros_isused===false && is_lukitaRulla_executed===false) {
             document.getElementById("lock_viesti").textContent = "valitse haluamasi lukita rullat";
             //creating lock buttons
             for (let x = 1; x < 6; x++) {
@@ -137,11 +139,13 @@ function Pelata() {
                 document.getElementById('lock4').style.backgroundColor = "aquamarine";
                 is_lukitaRulla_executed = true;
                 slot_value_list[3] = symboli_lista[3];
+                is_lukitaRulla_executed2=true;
             };
             document.getElementById('lock5').onclick = function () {
                 document.getElementById('lock5').style.backgroundColor = "aquamarine";
                 is_lukitaRulla_executed = true;
                 slot_value_list[4] = symboli_lista[4];
+                is_lukitaRulla_executed2=true;
             };
         }
     }
