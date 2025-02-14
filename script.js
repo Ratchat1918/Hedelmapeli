@@ -7,21 +7,21 @@ let symboli_lista = [];
 let voitto_var = 0;
 let slot_value_list = [null, null, null, null, null];
 let is_lukitaRulla_executed = false;
-let stopKierros_isused=false;
+let turn_number=0;
 
 // 1="7" 2="omena" 3="meloni" 4="päärymä" 5="kirsikka"
     
 // Main function
 function Pelata() {
-    if (is_lukitaRulla_executed === true) {
-        console.log(is_lukitaRulla_executed, "LOCK");
+    let nykyinen_voitto=0;
+    turn_number+=1;
+    console.log(turn_number,"turn");
+    if (is_lukitaRulla_executed === true && ensimainen_pyöräytys===false) {
         for (let x = 1; x < 6; x++) {
             document.getElementById(`lukitse${x}`).innerHTML = `<a id="slot${x}"></a>`;
         }
         document.getElementById("lock_viesti").textContent='';
     }
-
-    console.log(symboli_lista);
     let nykyinen_panos2 = parseFloat(panos.value);
     if (nykyinen_panos2 > nykyinen_saldo) {
         document.getElementById("huomio").textContent = "Panos ei saa olla isompi kuin saldo, paina 'Restart alottamaan uudelleen'";
@@ -40,7 +40,7 @@ function Pelata() {
                 symboli_lista[x] = slot_value_list[x];
             } else {
                 let number = Math.floor((Math.random() * 5) + 1);
-                symboli_lista.push(number);
+                symboli_lista.push(number); 
             }
         }
         slot_value_list = [null, null, null, null, null];
@@ -79,41 +79,50 @@ function Pelata() {
         }
 
         // Counting the amount of specific images and calculating win or lose
-        if (numero1_maara === 4) {
+        if (numero1_maara >= 4) {
             voitto_var += nykyinen_panos * 10;
+            nykyinen_voitto=nykyinen_panos * 10;
             document.getElementById("voitto").textContent = `Voitto: ${voitto_var}€`;
         }
-        else if (numero1_maara === 3) {
+        else if (numero1_maara >= 3) {
             voitto_var += nykyinen_panos * 5;
+            nykyinen_voitto=nykyinen_panos * 5;
             document.getElementById("voitto").textContent = `Voitto: ${voitto_var}€`;
         }
-        if (numero2_maara === 4) {
+        if (numero2_maara >= 4) {
             voitto_var += nykyinen_panos * 6;
+            nykyinen_voitto=nykyinen_panos * 6;
             document.getElementById("voitto").textContent = `Voitto: ${voitto_var}€`;
         }
-        if (numero3_maara === 4) {
+        if (numero3_maara >= 4 || numero3_maara>4) {
             voitto_var += nykyinen_panos * 5;
+            nykyinen_voitto=nykyinen_panos * 5;
             document.getElementById("voitto").textContent = `Voitto: ${voitto_var}€`;
         }
-        if (numero4_maara === 4) {
+        if (numero4_maara >= 4) {
             voitto_var += nykyinen_panos * 4;
+            nykyinen_voitto=nykyinen_panos * 4;
             document.getElementById("voitto").textContent = `Voitto: ${voitto_var}€`;
         }
-        if (numero5_maara === 4) {
+        if (numero5_maara >= 4) {
             voitto_var += nykyinen_panos * 3;
+            nykyinen_voitto=nykyinen_panos * 3;
             document.getElementById("voitto").textContent = `Voitto: ${voitto_var}€`;
         }
         else {
             nykyinen_saldo -= nykyinen_panos;
             document.getElementById("h1_saldo").textContent = `RAHAA: ${nykyinen_saldo}€`;
         }
+        //if win is zero and turn number is an odd number we let lukitaRulla work again
+        if(nykyinen_voitto===0 && turn_number%2!=0){
+            console.log("is odd");
+            is_lukitaRulla_executed=false;
+        }
     }
-
-    ensimainen_pyöräytys = false;
 
     // Function for locking the slots
     function lukitaRulla() {
-        if (ensimainen_pyöräytys === false && voitto_var === 0 && stopKierros_isused===false && is_lukitaRulla_executed===false) {
+        if (ensimainen_pyöräytys === false && is_lukitaRulla_executed===false && nykyinen_voitto===0) {
             document.getElementById("lock_viesti").textContent = "valitse haluamasi lukita rullat";
             //creating lock buttons
             for (let x = 1; x < 6; x++) {
@@ -147,14 +156,13 @@ function Pelata() {
             };
         }
     }
-
+    ensimainen_pyöräytys = false;
     generateSlots();
     calculateWin();
     lukitaRulla();
 }
 
 function stopKierros() {
-    stopKierros_isused=true;
     ensimainen_pyöräytys = true;
     for (let x = 1; x < 6; x++) {
         document.getElementById(`lukitse${x}`).innerHTML = `<a id="slot${x}"></a>`;
@@ -173,7 +181,6 @@ function restartPeli() {
     window.location.reload();
 }
 
-// Event listeners for buttons
 document.getElementById("playBtn").addEventListener("click", Pelata);
 document.getElementById("restartBtn").addEventListener("click", restartPeli);
 document.getElementById("stopBtn").addEventListener("click", stopKierros);
