@@ -10,7 +10,6 @@ let is_lukitaRulla_executed = false;
 let lukita_executed_now=true;
 let used_heti=false;
 let turn_number=0;
-let current_turn;
 
 // 1="7" 2="omena" 3="meloni" 4="päärymä" 5="kirsikka"
     
@@ -21,8 +20,6 @@ function Pelata() {
     if (is_lukitaRulla_executed === true && ensimainen_pyöräytys===false) {
         for (let x = 1; x < 6; x++) {
             document.getElementById(`lukitse${x}`).innerHTML = `<a id="slot${x}"></a>`;
-            current_turn=turn_number;
-            console.log("currnet turn: "+current_turn);
         }
         document.getElementById("lock_viesti").textContent='';
     }
