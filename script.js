@@ -7,7 +7,10 @@ let symboli_lista = [];
 let voitto_var = 0;
 let slot_value_list = [null, null, null, null, null];
 let is_lukitaRulla_executed = false;
+let lukita_executed_now=true;
+let used_heti=false;
 let turn_number=0;
+let current_turn;
 
 // 1="7" 2="omena" 3="meloni" 4="päärymä" 5="kirsikka"
     
@@ -15,10 +18,11 @@ let turn_number=0;
 function Pelata() {
     let nykyinen_voitto=0;
     turn_number+=1;
-    console.log(turn_number,"turn");
     if (is_lukitaRulla_executed === true && ensimainen_pyöräytys===false) {
         for (let x = 1; x < 6; x++) {
             document.getElementById(`lukitse${x}`).innerHTML = `<a id="slot${x}"></a>`;
+            current_turn=turn_number;
+            console.log("currnet turn: "+current_turn);
         }
         document.getElementById("lock_viesti").textContent='';
     }
@@ -114,15 +118,14 @@ function Pelata() {
             document.getElementById("h1_saldo").textContent = `RAHAA: ${nykyinen_saldo}€`;
         }
         //if win is zero and turn number is an odd number we let lukitaRulla work again
-        if(nykyinen_voitto===0 && turn_number%2!=0){
-            console.log("is odd");
+        if(nykyinen_voitto===0 && turn_number%2===0 && is_lukitaRulla_executed===true){
             is_lukitaRulla_executed=false;
         }
     }
 
     // Function for locking the slots
     function lukitaRulla() {
-        if (ensimainen_pyöräytys === false && is_lukitaRulla_executed===false && nykyinen_voitto===0) {
+        if (ensimainen_pyöräytys === false && is_lukitaRulla_executed===false && nykyinen_voitto===0 ){
             document.getElementById("lock_viesti").textContent = "valitse haluamasi lukita rullat";
             //creating lock buttons
             for (let x = 1; x < 6; x++) {
